@@ -49,8 +49,14 @@ public class EnchantmentAerialAffinity extends Enchantment {
     @SubscribeEvent
     public static void breakSpeed(PlayerEvent.BreakSpeed e) {
         EntityPlayer p = e.getEntityPlayer();
+
         if (!p.onGround && EnchantmentHelper.getMaxEnchantmentLevel(AERIAL_AFFINITY, p) > 0) {
-            e.setNewSpeed(e.getNewSpeed() * 5F);
+            float oldSpeed = e.getOriginalSpeed();
+            float newSpeed = e.getNewSpeed();
+
+            if (oldSpeed < newSpeed*5F)
+            e.setNewSpeed(newSpeed * 5F);
+
         }
     }
 }
