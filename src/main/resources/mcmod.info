@@ -5,7 +5,7 @@
   "description": "A mod that adds an enchantment that removes the mining speed penalty while flying.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/Tfarcenim/AerialAffinity",
   "updateUrl": "",
   "authorList": ["Tfarcemin"],
   "credits": "To teeto for the idea",

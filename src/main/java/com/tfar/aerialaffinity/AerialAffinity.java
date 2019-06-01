@@ -5,15 +5,20 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(modid = ReferenceVariables.MOD_ID, name = ReferenceVariables.NAME, version = ReferenceVariables.VERSION)
-@Mod.EventBusSubscriber(modid= ReferenceVariables.MOD_ID)
-public class Main
+import static com.tfar.aerialaffinity.AerialAffinity.*;
+
+@Mod(modid = MOD_ID, name = NAME, version = VERSION)
+@Mod.EventBusSubscriber(modid = MOD_ID)
+public class AerialAffinity
 {
+    public static final String MOD_ID = "aerialaffinity";
+    public static final String NAME = "Aerial Affinity";
+    public static final String VERSION = "@VERSION@";
     public static final Enchantment AERIAL_AFFINITY = new EnchantmentAerialAffinity();
 
     @SubscribeEvent
     public static void registerEnchantments(RegistryEvent.Register<Enchantment> event) {
-        event.getRegistry().registerAll(AERIAL_AFFINITY);
+        event.getRegistry().register(AERIAL_AFFINITY);
     }
 
 

@@ -9,12 +9,13 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static com.tfar.aerialaffinity.Main.AERIAL_AFFINITY;
+import static com.tfar.aerialaffinity.AerialAffinity.*;
 
-@Mod.EventBusSubscriber(modid= ReferenceVariables.MOD_ID)
+@Mod.EventBusSubscriber(modid= MOD_ID)
 public class EnchantmentAerialAffinity extends Enchantment {
     public EnchantmentAerialAffinity() {
 
@@ -54,9 +55,15 @@ public class EnchantmentAerialAffinity extends Enchantment {
             float oldSpeed = e.getOriginalSpeed();
             float newSpeed = e.getNewSpeed();
 
-            if (oldSpeed < newSpeed*5F)
+            if (oldSpeed < newSpeed * 5F)
             e.setNewSpeed(newSpeed * 5F);
-
+        }else if (Loader.isModLoaded("colytra")){
+            if(Util.getAerialAffinity(p) && !p.onGround){
+                float oldSpeed = e.getOriginalSpeed();
+                float newSpeed = e.getNewSpeed();
+                if (oldSpeed < newSpeed * 5F)
+                    e.setNewSpeed(newSpeed * 5F);
+            }
         }
     }
 }
