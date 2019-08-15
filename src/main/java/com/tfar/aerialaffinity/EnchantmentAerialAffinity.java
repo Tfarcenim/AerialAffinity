@@ -15,45 +15,49 @@ import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nonnull;
 
-import static com.tfar.aerialaffinity.AerialAffinity.AERIAL_AFFINITY;
-import static com.tfar.aerialaffinity.AerialAffinity.MOD_ID;
+import static com.tfar.aerialaffinity.AerialAffinity.MODID;
 
-@Mod.EventBusSubscriber(modid= MOD_ID)
+@Mod.EventBusSubscriber(modid = MODID)
 public class EnchantmentAerialAffinity extends Enchantment {
-    public EnchantmentAerialAffinity() {
+  public EnchantmentAerialAffinity() {
+    super(Rarity.RARE, EnchantmentType.ARMOR_CHEST, new EquipmentSlotType[]{
+            EquipmentSlotType.CHEST
+    });
+  }
 
-        super(Rarity.RARE, EnchantmentType.ARMOR_CHEST, new EquipmentSlotType[]{
-                EquipmentSlotType.CHEST
-        });
-        this.setRegistryName("aerialaffinity");
-    }
+  @Override
+  public int getMinEnchantability(int level) {
+    return 15;
+  }
 
-    @Override
-    public int getMinEnchantability(int level) {
-        return 15;
-    }
+  @Override
+  public int getMaxEnchantability(int p_223551_1_) {
+    return 1000;
+  }
 
-    @Override
-    public int getMaxLevel() {
-        return 1;
-    }
-    @Override
-    public boolean canApply(@Nonnull ItemStack stack) {
-        return stack.getItem() == Items.BOOK ||
-                stack.getItem() == Items.ELYTRA ||
-                (stack.getItem() instanceof ArmorItem)
-                        && ((ArmorItem) stack.getItem()).getEquipmentSlot() == EquipmentSlotType.CHEST;
-    }
-    @SubscribeEvent
-    public static void breakSpeed(PlayerEvent.BreakSpeed e) {
-        PlayerEntity p = e.getEntityPlayer();
+  @Override
+  public int getMaxLevel() {
+    return 1;
+  }
 
-        if (!p.onGround && EnchantmentHelper.getMaxEnchantmentLevel(AERIAL_AFFINITY, p) > 0) {
-            float oldSpeed = e.getOriginalSpeed();
-            //float newSpeed = e.getNewSpeed();
-            //if (oldSpeed < newSpeed*5F)
-            e.setNewSpeed(oldSpeed * 5F);
-        }
+  @Override
+  public boolean canApply(@Nonnull ItemStack stack) {
+    return stack.getItem() == Items.BOOK ||
+            stack.getItem() == Items.ELYTRA ||
+            stack.getItem() instanceof ArmorItem
+                    && ((ArmorItem) stack.getItem()).getEquipmentSlot() == EquipmentSlotType.CHEST;
+  }
+
+  @SubscribeEvent
+  public static void breakSpeed(PlayerEvent.BreakSpeed e) {
+    PlayerEntity p = e.getPlayer();
+
+    if (!p.onGround && EnchantmentHelper.getMaxEnchantmentLevel(AerialAffinity.aerial_affinity, p) > 0) {
+      float oldSpeed = e.getOriginalSpeed();
+      //float newSpeed = e.getNewSpeed();
+      //if (oldSpeed < newSpeed*5F)
+      e.setNewSpeed(oldSpeed * 5F);
     }
+  }
 }
 
